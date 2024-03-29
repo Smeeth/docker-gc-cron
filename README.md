@@ -1,4 +1,4 @@
-[![Build Docker Container](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml)
+[![Build Docker Container](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml/badge.svg?branch=master&event=push)](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml)
 
 # docker-gc-cron
 
