@@ -1,3 +1,5 @@
+[![Build Docker Container](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml)
+
 # docker-gc-cron
 
 The `docker-gc-cron` container will periodically run the very excellent [Spotify docker-gc script](https://github.com/spotify/docker-gc) script to automatically clean up unused containers and images.  It's particularly useful when deployed on systems onto which large numbers of Docker images and containers are built or pulled, such as CI nodes.
