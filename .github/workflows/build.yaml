@@ -26,5 +26,11 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: scartalune/docker-gc-cron:0.0.4
+          tags: scartalune/docker-gc-cron:0.0.5
           labels: org.opencontainers.image.source=https://github.com/Smeeth/docker-gc-cron
+      - name: Upload coverage reports to Codecov
+          uses: codecov/codecov-action@v4.0.1
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            slug: Smeeth/docker-gc-cron
+            
