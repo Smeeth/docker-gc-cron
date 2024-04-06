@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   gc:
     image: scartalune/docker-gc-cron:latest

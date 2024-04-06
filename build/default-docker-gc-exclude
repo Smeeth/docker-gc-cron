@@ -8,4 +8,4 @@
 # This is the default excludes document, which is used if no other version is volumed over it.     #
 ####################################################################################################
 
-scartalune/docker-gc-cron:0.0.4
+scartalune/docker-gc-cron:0.0.7
