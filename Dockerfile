@@ -1,9 +1,9 @@
 FROM alpine:3.19
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL date="2024-04-06"
+LABEL date="2024-05-31"
 
-ARG DOCKER_VERSION=1.11.1
+ARG DOCKER_VERSION=1.12.0
 
 # We get curl so that we can avoid a separate ADD to fetch the Docker binary, and then we'll remove it.
 # Blatantly "borrowed" from Spotify's spotify/docker-gc image. Thanks, folks!
