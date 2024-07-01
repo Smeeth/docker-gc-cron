@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM alpine:3
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
 LABEL date="2024-05-31"
