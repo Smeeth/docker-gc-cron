@@ -41,5 +41,5 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: scartalune/docker-gc-cron:0.0.8
+          tags: scartalune/docker-gc-cron:0.0.9
           labels: org.opencontainers.image.source=https://github.com/Smeeth/docker-gc-cron            
