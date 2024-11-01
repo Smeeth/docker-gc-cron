@@ -2,7 +2,7 @@
 FROM alpine:3.20.3 AS builder
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL version="0.1.0"
+#LABEL version="0.1.0"
 LABEL date="2024-11-01"
 
 # Installieren der erforderlichen Pakete
@@ -28,18 +28,21 @@ RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
 # Zweite Phase: Erstellen des finalen Images
 FROM alpine:3.20.3
 
-# Erstellen des nicht-root Benutzers und Hinzufügen zur Docker-Gruppe im finalen Image
-RUN addgroup -S docker-gc && adduser -S -G docker-gc docker-gc && addgroup docker-gc docker
+# Erstellen der Docker-Gruppe und des nicht-root Benutzers
+RUN addgroup -S docker && \
+    addgroup -S docker-gc && \
+    adduser -S -G docker-gc docker-gc && \
+    addgroup docker-gc docker
+
+# Installieren von Docker im finalen Image
+RUN apk add --no-cache docker tini \
+    && mkdir -p /var/run/docker
 
 # Kopieren der notwendigen Dateien aus der Builder-Phase
 COPY --from=builder /usr/bin/docker-gc /usr/bin/docker-gc
 COPY --from=builder /etc/docker-gc-exclude /etc/docker-gc-exclude
 COPY --from=builder /executed-by-cron.sh /executed-by-cron.sh
 COPY --from=builder /generate-crontab.sh /generate-crontab.sh
-
-# Installieren der minimalen Abhängigkeiten für den finalen Container und Erstellen des Docker-Socket-Verzeichnisses
-RUN apk add --no-cache tini docker-cli \
-    && mkdir -p /var/run/docker
 
 # Wechseln zum nicht-root Benutzer
 USER docker-gc
