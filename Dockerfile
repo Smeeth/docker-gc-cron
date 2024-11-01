@@ -18,7 +18,6 @@ RUN apk add --no-cache \
     && curl -fsSL https://get.docker.com -o get-docker.sh \
     && sh get-docker.sh --version $DOCKER_VERSION \
     && rm get-docker.sh
-    && ln -sf /dev/stdout /var/log/cron.log
 
 ADD https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
 COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
