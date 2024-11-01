@@ -1,34 +1,32 @@
 FROM alpine:3
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL date="2024-07-12"
+LABEL date="2024-11-01"
 
-ARG DOCKER_VERSION=1.12.0
+ARG DOCKER_VERSION=20.10.23
+ARG TARGETARCH
 
-# We get curl so that we can avoid a separate ADD to fetch the Docker binary, and then we'll remove it.
-# Blatantly "borrowed" from Spotify's spotify/docker-gc image. Thanks, folks!
-RUN apk --update add bash curl tzdata \
-  && cd /tmp/ \
-  && curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz \
-  && tar zxf docker-${DOCKER_VERSION}.tgz \
-  && mkdir -p /usr/local/bin/ \
-  && mv /tmp/docker/docker /usr/local/bin/ \
-  && chmod +x /usr/local/bin/docker \
-  && apk del curl \
-  && rm -rf /tmp/* \
-  && rm -rf /var/cache/apk/*
+ENV DOCKER_GC_GRACE_PERIOD_SECONDS=3600
+ENV DOCKER_GC_INTERVAL="0 2 * * *"
 
-ADD https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
+RUN apk add --no-cache bash tzdata tini \
+    && DOCKER_URL="https://download.docker.com/linux/static/stable/${TARGETARCH}/docker-${DOCKER_VERSION}.tgz" \
+    && curl -sSL -O ${DOCKER_URL} \
+    && tar zxf docker-${DOCKER_VERSION}.tgz \
+    && mv docker/docker /usr/local/bin/ \
+    && rm -rf docker docker-${DOCKER_VERSION}.tgz \
+    && ln -sf /dev/stdout /var/log/cron.log
+
+COPY https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
 COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
 COPY build/executed-by-cron.sh /executed-by-cron.sh
 COPY build/generate-crontab.sh /generate-crontab.sh
 
-RUN chmod 0755 /usr/bin/docker-gc \
-  && chmod 0755 /generate-crontab.sh \
-  && chmod 0755 /executed-by-cron.sh \
-  && chmod 0644 /etc/docker-gc-exclude 
+RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
+    && chmod 0644 /etc/docker-gc-exclude
 
-CMD /generate-crontab.sh > /var/log/cron.log 2>&1 \
-  && crontab crontab.tmp \
-  && /usr/sbin/crond \
-  && tail -f /var/log/cron.log
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD pgrep crond || exit 1
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/bin/sh", "-c", "/generate-crontab.sh && crond -f"]
