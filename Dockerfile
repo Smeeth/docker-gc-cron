@@ -24,6 +24,9 @@ COPY build/generate-crontab.sh /generate-crontab.sh
 RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
     && chmod 0644 /etc/docker-gc-exclude
 
+# Erstellen des nicht-root Benutzers und Hinzufügen zur Docker-Gruppe
+RUN addgroup -S docker-gc && adduser -S -G docker-gc docker-gc && addgroup docker-gc docker
+
 # Zweite Phase: Erstellen des finalen Images
 FROM alpine:latest
 
@@ -36,9 +39,15 @@ COPY --from=builder /generate-crontab.sh /generate-crontab.sh
 # Installieren der minimalen Abhängigkeiten für den finalen Container
 RUN apk add --no-cache tini docker-cli
 
-# Healthcheck hinzufügen
-HEALTHCHECK --interval=5m --timeout=3s CMD pgrep crond || exit 1
+# Erstellen des Docker-Socket-Verzeichnisses
+RUN mkdir -p /var/run/docker
 
-# Starten des Containers mit Tini und Cron-Daemon
+# Wechseln zum nicht-root Benutzer
+USER docker-gc
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD pgrep crond || exit 1
+
+# Starten des Containers mit Tini als Init-System
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/bin/sh", "-c", "/generate-crontab.sh && crond -f"]
