@@ -11,7 +11,6 @@ COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
 COPY build/executed-by-cron.sh /executed-by-cron.sh
 COPY build/generate-crontab.sh /generate-crontab.sh
 
-
 FROM alpine:3.20.3
 
 # Installieren der erforderlichen Pakete
@@ -24,6 +23,12 @@ RUN apk add --no-cache \
     tini \
     tzdata
 
+# Kopieren der notwendigen Dateien aus der Builder-Phase
+COPY --from=builder /usr/bin/docker-gc /usr/bin/docker-gc
+COPY --from=builder /etc/docker-gc-exclude /etc/docker-gc-exclude
+COPY --from=builder /executed-by-cron.sh /executed-by-cron.sh
+COPY --from=builder /generate-crontab.sh /generate-crontab.sh
+
 RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
     && chmod 0644 /etc/docker-gc-exclude \
     && addgroup -S docker \
@@ -32,12 +37,6 @@ RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
     && addgroup docker-gc docker \
     && apk add --no-cache docker tini \
     && mkdir -p /var/run/docker
-
-# Kopieren der notwendigen Dateien aus der Builder-Phase
-COPY --from=builder /usr/bin/docker-gc /usr/bin/docker-gc
-COPY --from=builder /etc/docker-gc-exclude /etc/docker-gc-exclude
-COPY --from=builder /executed-by-cron.sh /executed-by-cron.sh
-COPY --from=builder /generate-crontab.sh /generate-crontab.sh
 
 # Wechseln zum nicht-root Benutzer
 USER docker-gc
