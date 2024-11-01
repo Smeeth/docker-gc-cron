@@ -29,7 +29,7 @@ RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
     && addgroup -S docker \
     && addgroup -S docker-gc \
     && adduser -S -G docker-gc docker-gc \
-    && addgroup docker-gc docker
+    && addgroup docker-gc docker \
     && apk add --no-cache docker tini \
     && mkdir -p /var/run/docker
 
