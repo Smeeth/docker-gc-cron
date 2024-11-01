@@ -37,11 +37,9 @@ COPY --from=builder /etc/docker-gc-exclude /etc/docker-gc-exclude
 COPY --from=builder /executed-by-cron.sh /executed-by-cron.sh
 COPY --from=builder /generate-crontab.sh /generate-crontab.sh
 
-# Installieren der minimalen Abhängigkeiten für den finalen Container
-RUN apk add --no-cache tini docker-cli
-
-# Erstellen des Docker-Socket-Verzeichnisses
-RUN mkdir -p /var/run/docker
+# Installieren der minimalen Abhängigkeiten für den finalen Container und Erstellen des Docker-Socket-Verzeichnisses
+RUN apk add --no-cache tini docker-cli \
+    && mkdir -p /var/run/docker
 
 # Wechseln zum nicht-root Benutzer
 USER docker-gc
