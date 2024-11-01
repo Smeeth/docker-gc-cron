@@ -15,6 +15,7 @@ RUN apk add --no-cache \
     bash \
     docker \
     openrc \
+    docker-cli
 
 ADD https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
 COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
