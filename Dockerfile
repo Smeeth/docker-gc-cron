@@ -7,7 +7,6 @@ LABEL date="2024-11-01"
 # Installieren der erforderlichen Pakete
 RUN apk add --no-cache \
     bash \
-    curl \
     docker \
     git \
     openrc \
