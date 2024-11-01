@@ -29,10 +29,10 @@ RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
 FROM alpine:3.20.3
 
 # Erstellen der Docker-Gruppe und des nicht-root Benutzers
-RUN addgroup -S docker && \
-    addgroup -S docker-gc && \
-    adduser -S -G docker-gc docker-gc && \
-    addgroup docker-gc docker
+RUN addgroup -S docker \
+    && addgroup -S docker-gc \
+    && adduser -S -G docker-gc docker-gc \
+    && addgroup docker-gc docker
 
 # Installieren von Docker im finalen Image
 RUN apk add --no-cache docker tini \
