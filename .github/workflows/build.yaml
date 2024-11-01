@@ -11,7 +11,7 @@ on:
 
 env:
   DOCKER_IMAGE: scartalune/docker-gc-cron
-  DOCKER_VERSION: 20.10.23
+  DOCKER_VERSION: 1.12.0
 
 jobs:
   sonarcloud:
