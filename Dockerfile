@@ -44,7 +44,8 @@ RUN apk add --no-cache tini docker-cli \
 USER docker-gc
 
 HEALTHCHECK --interval=5m --timeout=3s \
-  CMD pgrep crond || exit 1
+  CMD ["pgrep", "crond"]
+
 
 # Starten des Containers mit Tini als Init-System
 ENTRYPOINT ["/sbin/tini", "--"]
