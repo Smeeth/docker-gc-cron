@@ -1,5 +1,5 @@
 # Erste Phase: Installieren der Abhängigkeiten
-FROM alpine:latest AS builder
+FROM alpine:3.17 AS builder
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
 LABEL date="2024-11-01"
@@ -29,7 +29,7 @@ RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
     && addgroup docker-gc docker
 
 # Zweite Phase: Erstellen des finalen Images
-FROM alpine:latest
+FROM alpine:3.17
 
 # Kopieren der notwendigen Dateien aus der Builder-Phase
 COPY --from=builder /usr/bin/docker-gc /usr/bin/docker-gc
