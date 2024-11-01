@@ -3,13 +3,13 @@ FROM alpine:3
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
 LABEL date="2024-11-01"
 
-ARG DOCKER_VERSION=20.10.23
+ARG DOCKER_VERSION=1.12.0
 ARG TARGETARCH
 
 ENV DOCKER_GC_GRACE_PERIOD_SECONDS=3600
 ENV DOCKER_GC_INTERVAL="0 2 * * *"
 
-RUN apk add --no-cache bash tzdata tini \
+RUN apk add --no-cache bash tzdata tini curl \
     && DOCKER_URL="https://download.docker.com/linux/static/stable/${TARGETARCH}/docker-${DOCKER_VERSION}.tgz" \
     && curl -sSL -O ${DOCKER_URL} \
     && tar zxf docker-${DOCKER_VERSION}.tgz \
