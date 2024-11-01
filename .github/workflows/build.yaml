@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - dev  # Hinzufügen des dev-Branches
     tags:
       - 'v*'
   pull_request:
@@ -65,7 +66,6 @@ jobs:
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
 
-
       - name: Build and push for dev branch
         if: github.ref == 'refs/heads/dev'  # Nur für dev-Branch
         uses: docker/build-push-action@v6.9.0
@@ -86,7 +86,6 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE }}:${{ steps.meta.outputs.version }}  # Versionsnummer für master-Branch
             ${{ env.DOCKER_IMAGE }}:latest                            # Latest Tag für master-Branch
-    
     
       - name: Move cache
         run: |
