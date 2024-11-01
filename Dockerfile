@@ -28,14 +28,12 @@ RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
 # Zweite Phase: Erstellen des finalen Images
 FROM alpine:3.20.3
 
-# Erstellen der Docker-Gruppe und des nicht-root Benutzers
+# Erstellen der Docker-Gruppe und des nicht-root Benutzers und Installieren von Docker im finalen Image
 RUN addgroup -S docker \
     && addgroup -S docker-gc \
     && adduser -S -G docker-gc docker-gc \
     && addgroup docker-gc docker
-
-# Installieren von Docker im finalen Image
-RUN apk add --no-cache docker tini \
+    && apk add --no-cache docker tini \
     && mkdir -p /var/run/docker
 
 # Kopieren der notwendigen Dateien aus der Builder-Phase
