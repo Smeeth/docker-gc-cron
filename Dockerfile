@@ -21,12 +21,12 @@ COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
 COPY build/executed-by-cron.sh /executed-by-cron.sh
 COPY build/generate-crontab.sh /generate-crontab.sh
 
-# Berechtigungen setzen
+# Berechtigungen setzen und Erstellen des nicht-root Benutzers
 RUN chmod 0755 /usr/bin/docker-gc /generate-crontab.sh /executed-by-cron.sh \
-    && chmod 0644 /etc/docker-gc-exclude
-
-# Erstellen des nicht-root Benutzers und Hinzufügen zur Docker-Gruppe
-RUN addgroup -S docker-gc && adduser -S -G docker-gc docker-gc && addgroup docker-gc docker
+    && chmod 0644 /etc/docker-gc-exclude \
+    && addgroup -S docker-gc \
+    && adduser -S -G docker-gc docker-gc \
+    && addgroup docker-gc docker
 
 # Zweite Phase: Erstellen des finalen Images
 FROM alpine:latest
