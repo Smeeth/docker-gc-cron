@@ -17,7 +17,7 @@ RUN apk add --no-cache bash tzdata tini \
     && rm -rf docker docker-${DOCKER_VERSION}.tgz \
     && ln -sf /dev/stdout /var/log/cron.log
 
-COPY https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
+ADD https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
 COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
 COPY build/executed-by-cron.sh /executed-by-cron.sh
 COPY build/generate-crontab.sh /generate-crontab.sh
