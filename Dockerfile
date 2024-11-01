@@ -7,12 +7,13 @@ LABEL date="2024-11-01"
 # Installieren der erforderlichen Pakete
 RUN apk add --no-cache \
     bash \
-    tzdata \
-    tini \
     curl \
-    git \
     docker \
-    openrc
+    git \
+    openrc \
+    shadow \
+    tini \
+    tzdata
 
 # Herunterladen des docker-gc Skripts und Kopieren der Dateien
 ADD https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc /usr/bin/docker-gc
