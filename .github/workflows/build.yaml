@@ -86,7 +86,7 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE }}:${{ steps.meta.outputs.version }}  # Versionsnummer für master-Branch
             ${{ env.DOCKER_IMAGE }}:latest                            # Latest Tag für master-Branch
-    
+ 
       - name: Move cache
         run: |
           rm -rf /tmp/.buildx-cache
