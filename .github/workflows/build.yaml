@@ -68,7 +68,7 @@ jobs:
 
       - name: Build and push for dev branch
         if: github.ref == 'refs/heads/dev'  # Nur für dev-Branch
-        uses: docker/build-push-action@v6.9.0
+        uses: docker/build-push-action@v6.10.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -78,7 +78,7 @@ jobs:
     
       - name: Build and push for master branch
         if: github.ref == 'refs/heads/master'  # Nur für master-Branch
-        uses: docker/build-push-action@v6.9.0
+        uses: docker/build-push-action@v6.10.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64
