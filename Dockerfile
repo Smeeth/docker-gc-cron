@@ -1,5 +1,5 @@
 # Erste Phase: Installieren der Abhängigkeiten
-FROM alpine:3.20.3 as builder
+FROM alpine:3.21.2 as builder
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
 LABEL version="0.1.0"
@@ -11,7 +11,7 @@ COPY build/default-docker-gc-exclude /etc/docker-gc-exclude
 COPY build/executed-by-cron.sh /executed-by-cron.sh
 COPY build/generate-crontab.sh /generate-crontab.sh
 
-FROM alpine:3.20.3
+FROM alpine:3.21.2
 
 # Installieren der erforderlichen Pakete
 RUN apk add --no-cache \
