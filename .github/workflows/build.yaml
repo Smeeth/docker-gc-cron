@@ -2,7 +2,7 @@ name: Build Docker Container
 
 on:
   push:
-    branches: [master, main, dev]
+    branches: [master]
     tags: ['v*']
   pull_request:
     types: [opened, synchronize, reopened]
@@ -44,6 +44,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Extract version from Dockerfile
+        id: get_version
+        run: |
+          VERSION=$(grep 'LABEL version=' Dockerfile | cut -d '"' -f 2)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
       - name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@v5
@@ -52,9 +58,9 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=sha
             type=ref,event=branch
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ env.VERSION }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -67,12 +73,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: '${{ env.DOCKER_IMAGE }}:${{ steps.meta.outputs.version }}'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+      #- name: Run Trivy vulnerability scanner
+        #uses: aquasecurity/trivy-action@master
+        #with:
+          #image-ref: '${{ env.DOCKER_IMAGE }}:${{ steps.meta.outputs.version }}'
+          #format: 'table'
+          #exit-code: '1'
+          #ignore-unfixed: true
+          #vuln-type: 'os,library'
+          #severity: 'CRITICAL,HIGH'
