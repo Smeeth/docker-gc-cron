@@ -1,7 +1,7 @@
-FROM alpine:3.19
+FROM alpine:3.21.2
 
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL version="0.2.0"
+LABEL version="0.2.1"
 LABEL date="2025-01-18"
 
 # Install required packages
