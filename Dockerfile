@@ -16,8 +16,10 @@ COPY build/docker-prune.sh /usr/local/bin/docker-prune.sh
 # Set permissions
 RUN chmod +x /usr/local/bin/docker-prune.sh
 
-# Create a non-root user
-RUN addgroup -S docker && adduser -S -G docker dockeruser
+# Create a non-root user and add to docker group
+RUN addgroup -S docker && \
+    adduser -S -G docker dockeruser && \
+    addgroup dockeruser docker
 
 # Switch to non-root user
 USER dockeruser
