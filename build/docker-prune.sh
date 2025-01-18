@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-# Execute docker system prune
+echo "Docker system prune executed on $(date)"
+
+# Run the Docker system prune command to remove unused data
 docker system prune -af --volumes
 
-# Log the result
-echo "Docker system prune executed on $(date)"
+echo "Docker system prune completed."
