@@ -10,7 +10,7 @@ LABEL date="2025-01-18"
 RUN apk add --no-cache tzdata
 
 # Copy the docker-prune.sh script to the container
-COPY docker-prune.sh /usr/local/bin/docker-prune.sh
+COPY build/docker-prune.sh /usr/local/bin/docker-prune.sh
 
 # Set executable permissions for the script
 RUN chmod +x /usr/local/bin/docker-prune.sh
