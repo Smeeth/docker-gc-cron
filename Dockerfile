@@ -8,9 +8,13 @@ LABEL date="2025-01-18"
 
 # Install required packages
 RUN apk add --no-cache \
-    bash \               # Bash shell for script execution
-    docker-cli \        # Docker CLI to interact with Docker daemon
-    tzdata               # Time zone data
+        bash \               
+        docker-cli \        
+        tzdata               
+    
+    # Bash shell for script execution
+    # Docker CLI to interact with Docker daemon
+    # Time zone data
 
 # Copy the docker-prune.sh script from the build directory to the container
 COPY build/docker-prune.sh /usr/local/bin/docker-prune.sh
