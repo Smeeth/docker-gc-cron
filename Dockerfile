@@ -1,31 +1,32 @@
+# Use the latest Alpine version as the base image
 FROM alpine:3.21.2
 
+# Maintainer information
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
 LABEL version="0.2.1"
 LABEL date="2025-01-18"
 
 # Install required packages
 RUN apk add --no-cache \
-    bash \
-    docker-cli \
-    tzdata
+    bash \               # Bash shell for script execution
+    docker-cli \        # Docker CLI to interact with Docker daemon
+    tzdata               # Time zone data
 
-# Copy the script from the build directory to the container
+# Copy the docker-prune.sh script from the build directory to the container
 COPY build/docker-prune.sh /usr/local/bin/docker-prune.sh
 
-# Set permissions
+# Set executable permissions for the script
 RUN chmod +x /usr/local/bin/docker-prune.sh
 
-# Create a non-root user and add to docker group
+# Create a non-root user and add to the Docker group
 RUN addgroup -S docker && \
-    adduser -S -G docker dockeruser && \
-    addgroup dockeruser docker
+    adduser -S -G docker dockeruser
 
-# Switch to non-root user
+# Switch to non-root user for security reasons
 USER dockeruser
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /home/dockeruser
 
-# Run the prune script
+# Command to run when the container starts
 CMD ["/usr/local/bin/docker-prune.sh"]

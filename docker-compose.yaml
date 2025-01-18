@@ -1,0 +1,12 @@
+# Define the version of the Docker Compose file format (version attribute is now obsolete)
+services:
+  docker-prune:
+    image: docker-prune-image          # Specify the image to use for this service
+    container_name: docker-prune        # Name of the container
+    environment:
+      - PUID=${PUID}                   # User ID for permissions, set via .env file
+      - PGID=${PGID}                   # Group ID for permissions, set via .env file
+      - TZ=${TZ}                       # Time zone, set via .env file
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket for access to Docker daemon
+    restart: unless-stopped             # Restart policy for the container
