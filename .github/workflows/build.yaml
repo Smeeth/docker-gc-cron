@@ -52,7 +52,7 @@ jobs:
 
       - name: Extract metadata for Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v5.6.1
         with:
           images: ${{ env.DOCKER_IMAGE }}
           tags: |
@@ -62,7 +62,7 @@ jobs:
             type=raw,value=${{ env.VERSION }}
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v6.12.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64
