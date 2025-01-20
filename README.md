@@ -1,6 +1,8 @@
 [![Build Docker Container](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml/badge.svg?branch=master&event=push)](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml)
 
-# docker-gc-cron NEW READ ME PROPOSAL
+# NEW READ ME PROPOSAL
+
+# docker-gc-cron 
 ### a Docker Prune Container
 
 This project provides a Docker container that regularly runs `docker system prune` to clean up unused Docker resources.
@@ -20,11 +22,24 @@ While Spotify's docker-gc was a popular solution for Docker cleanup, it has been
 - Configurable sleep time between prune operations
 - Uses the official Docker CLI image for compatibility and security
 
+## License
+
+This repository is licensed under the GNU General Public License v3.0 (GPLv3).
+
+It's important to note that this project no longer contains source code from https://github.com/clockworksoul/docker-gc-cron or https://github.com/spotify/docker-gc. The functionality previously provided by these projects has been completely rewritten. This decision was made because the original approach was considered outdated by the current developer. For more information on why we chose to reimplement these features, please refer to the section "## Why Not Spotify's Docker Garbage Collection?".
+
+The full text of the GPLv3 license can be found in the LICENSE file in this repository. By using, distributing, or contributing to this project, you agree to the terms and conditions of this license.
+
+
+
+
+
+
 ... to be continued
 
 
-
-# docker-gc-cron OLD README
+# OLD README
+# docker-gc-cron
 
 The `docker-gc-cron` container will periodically run the very excellent [Spotify docker-gc script](https://github.com/spotify/docker-gc) script to automatically clean up unused containers and images.  It's particularly useful when deployed on systems onto which large numbers of Docker images and containers are built or pulled, such as CI nodes.
 
