@@ -1,5 +1,7 @@
 # docker-gc-cron
 
+version: 0.3.2
+
 A Docker container that regularly runs `docker system prune` to clean up unused Docker resources.
 
 [![Build Docker Container](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml/badge.svg?branch=master&event=push)](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml)
