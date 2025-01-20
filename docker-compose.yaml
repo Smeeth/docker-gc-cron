@@ -4,7 +4,6 @@ services:
     image: docker-prune-image
     container_name: docker-prune
     environment:
-      - TZ=${TZ}
       - SLEEP_TIME=3600  # Set default sleep time to 3600 seconds (1 hour)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
