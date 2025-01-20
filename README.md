@@ -1,5 +1,3 @@
-# NEW README PROPOSAL
-
 # docker-gc-cron
 
 A Docker container that regularly runs `docker system prune` to clean up unused Docker resources.
@@ -7,7 +5,6 @@ A Docker container that regularly runs `docker system prune` to clean up unused 
 [![Build Docker Container](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml/badge.svg?branch=master&event=push)](https://github.com/Smeeth/docker-gc-cron/actions/workflows/build.yaml)
 
 ## Table of Contents
-- [NEW README PROPOSAL](#new-readme-proposal)
 - [docker-gc-cron](#docker-gc-cron)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
