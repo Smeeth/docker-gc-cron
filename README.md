@@ -6,15 +6,15 @@ A Docker container that regularly runs `docker system prune` to clean up unused 
 
 ## Table of Contents
 - [docker-gc-cron](#docker-gc-cron)
-  - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
   - [Features](#features)
   - [Why Not Spotify's Docker Garbage Collection?](#why-not-spotifys-docker-garbage-collection)
   - [Usage](#usage)
+    - [With docker cli](#with-docker-cli)
+    - [With docker compose](#with-docker-compose)
   - [Configuration](#configuration)
   - [Contributing](#contributing)
   - [License](#license)
-  - [... to be continued](#-to-be-continued)
 
 ## Quick Start
 
@@ -34,7 +34,49 @@ While Spotify's docker-gc was a popular solution for Docker cleanup, it has been
 
 ## Usage
 
-[...]
+### With docker cli:
+
+```
+docker run -d -v /var/run/docker.sock:/var/run/docker.sock scartalune/docker-gc-cron:latest
+```
+
+### With docker compose:
+
+`nano docker-compose.yaml`
+
+Paste the following:
+
+```
+services:
+  docker-gc:
+    image: scartalune/docker-gc-cron:latest
+    container_name: docker-gc
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+volumes:
+  docker_socket:
+    external: true
+```
+
+Then start container with
+
+`docker compose up -d`
+
+Update with
+
+`docker compose down`
+and
+`docker compose pull`
+and
+`docker compose up -d`
+
 
 ## Configuration
 
