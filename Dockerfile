@@ -3,8 +3,8 @@ FROM docker:27.5.0-cli-alpine3.21
 
 # Maintainer information
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL version="0.3.0"
-LABEL date="2025-01-18"
+LABEL version="0.3.1"
+LABEL date="2025-01-20"
 
 # Install additional packages if needed
 RUN apk add --no-cache tzdata
