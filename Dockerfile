@@ -1,5 +1,5 @@
 # Use the latest Docker CLI version based on Alpine
-FROM docker:27.5.0-cli-alpine3.21
+FROM docker:27.5.1-cli-alpine3.21
 
 # Maintainer information
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
