@@ -1,6 +1,6 @@
 # docker-gc-cron
 
-version: 0.3.2
+version: 0.3.5
 
 A Docker container that regularly runs `docker system prune` to clean up unused Docker resources.
 
@@ -20,6 +20,7 @@ A Docker container that regularly runs `docker system prune` to clean up unused 
     - [Docker CLI Example](#docker-cli-example)
     - [Docker Compose Example](#docker-compose-example)
   - [Contributing](#contributing)
+  - [Changelog](#changelog)
   - [License](#license)
 
 ## Quick Start
@@ -114,6 +115,10 @@ services:
 In these examples, the container will wait 2 hours (7200 seconds) between each Docker system prune operation. You can adjust the `SLEEP_TIME` to any positive integer representing seconds.
 
 ## Contributing
+
+[...]
+
+## Changelog
 
 [...]
 
