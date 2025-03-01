@@ -1,10 +1,10 @@
 # Use the latest Docker CLI version based on Alpine
-FROM docker:27.5.0-cli-alpine3.21
+FROM docker:27.5.1-cli-alpine3.21
 
 # Maintainer information
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL version="0.3.2"
-LABEL date="2025-01-20"
+LABEL version="0.3.6"
+LABEL date="2025-03-01"
 
 # Install additional packages if needed
 RUN apk add --no-cache tzdata
