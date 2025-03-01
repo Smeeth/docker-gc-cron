@@ -3,7 +3,7 @@ FROM docker:27.5.1-cli-alpine3.21
 
 # Maintainer information
 LABEL maintainer="Eibo Richter <eibo.richter@gmail.com>"
-LABEL version="0.3.6"
+LABEL version="0.3.5"
 LABEL date="2025-03-01"
 
 # Install additional packages if needed
